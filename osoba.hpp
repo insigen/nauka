@@ -15,18 +15,18 @@ class osoba
 {
     //to jest priv.
 public:
-    osoba() = default; // w zaleznosci od optymalizacji kompilator moze do ciala tego
-    osoba( int wiek, const string & imie, const string & praca);
+	osoba() = default; // w zaleznosci od optymalizacji kompilator moze do ciala tego
+	osoba( int wiek, const string & imie, const string & praca);
 
-    bool operator ==(const osoba& o1);
-    osoba(const osoba& druga);
-    osoba& operator =(const osoba& druga);
+	bool operator ==(const osoba& o1);
+	osoba(const osoba& druga);
+	osoba& operator =(const osoba& druga);
     void print_osoba() const;
 
     string get_imie() const;
 
-    friend ostream& operator <<(ostream& o, const osoba& os);
-    virtual ~osoba();
+	friend ostream& operator <<(ostream& o, const osoba& os);
+	virtual ~osoba();
 
 private:
     int m_wiek;

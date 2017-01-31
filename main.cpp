@@ -4,10 +4,12 @@
 #include <list>
 #include <algorithm>
 #include <vector>
-\
 #include "osoba.hpp"
 #include "lista_osob.hpp"
 #include "super_karol_pointer.hpp"
+#include "praca.hpp"
+#include "osoba2.hpp"
+
 
 using namespace std;
 
@@ -78,13 +80,56 @@ void Lesson4()
     //AGENDA:
     //lambda
     //przeladowanie new i delete
-    //...
+	//...
+	try
+	{
+		facet karol(30, "karol", "programista_wykop");
+		facet filip(33, "filip", "bohater");
+		babka magda(18, "magda", "pomoc_domowa");
+//		facet ktos(99, "ktos", "ksiadz");
+
+		filip.wykonaj_prace();
+		magda.wykonaj_prace();
+		magda.wykonaj_prace_domowe();
+		filip.wykonaj_prace_domowe();
+
+		//osoba2 os = new facet;..
+		//os->wykonaj_prace();
+
+	}
+	catch(exception & ex)
+	{
+		cout << "WTF " << ex.what() << endl;
+	}
+
+
+}
+
+void bar(osoba2 * osob)
+{
+	osob->wykonaj_prace(); //Call virtual function
+}
+
+template<typename T>
+void foo(osoba2_stat<T>& osob) //Like pointer to base class
+{
+	osob.do_job_not_static();
+}
+
+void Lesson5()
+{
+	//Like providing pointer to derived class
+	osoba2_facet fac;
+	osoba2 * fac2 = new facet(10,"Kacper","programista_wykop");
+
+	foo(fac);
+	bar(fac2);
 }
 
 int main()
 {
 //    Lesson1();
-    Lesson3();
-
+	//Lesson4();
+	Lesson5();
       return 0;
 }
