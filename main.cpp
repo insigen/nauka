@@ -9,7 +9,7 @@
 #include "super_karol_pointer.hpp"
 #include "praca.hpp"
 #include "osoba2.hpp"
-
+#include "shop.hpp"
 
 using namespace std;
 
@@ -124,6 +124,12 @@ void Lesson5()
 
 	foo(fac);
 	bar(fac2);
+}
+
+void Lesson6()
+{
+	product_ptr whisky = product::create<alcohol>("jack_daniels", 1000);
+
 }
 
 int main()
