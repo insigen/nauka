@@ -130,6 +130,33 @@ void Lesson6()
 {
 	product_ptr whisky = product::create<alcohol>("jack_daniels", 1000);
 
+	/* TODO: KAROL:
+	 *  1) Create some products and put them in a container of products
+	 *  2) Create a shop and attempt to sell some products,
+	 *  3) Ask the shop for the product list and verify that everything
+	 *     that you've sold is in there
+	 *  3) Create a product, use it, and the sell it.. verify the prize
+	 *  4) Attempt to buy something, check if everything works
+	 */
+
+	/*
+	 * TODO: KAROL:
+	 *  1) Create a market object, which have the following interface:
+	 *     - ticket enter_market( osoba2 ) = A given osoba enter the market place
+	 *     - bool enter_market( shop ) = A new shop in the market
+	 *     - void quit_market( oboba2 or shop ) = exit the market (No more in the internal list)
+	 *   Store the list of shops and osoba as variables (vectors, maps, you choose).
+	 *  2) the 'ticket' returned by enter_market is an object with the following interface:
+	 *     - shared_ptr<shop> enter_shop( name ) = return a pointer to one of the shops
+	 *       in the market, one use case is:
+	 *       int price = ticket->enter_shop("alkohol shop")->inquiry("Jack Daniels");
+	 *       if ( have money ) {
+	 *				product_ptr new_product = ticket->enter_shop("alkohol shop")->buy("Jack Deniels");
+	 *       }
+	 *       where someone is buying a product from one of the shop, if the shop is not in the market
+	 *       return nullptr.
+	 */
+
 }
 
 int main()
