@@ -142,9 +142,10 @@ void Lesson6()
 	/*
 	 * TODO: KAROL:
 	 *  1) Create a market object, which have the following interface:
-	 *     - ticket enter_market( osoba2 ) = A given osoba enter the market place
-	 *     - bool enter_market( shop ) = A new shop in the market
-	 *     - void quit_market( oboba2 or shop ) = exit the market (No more in the internal list)
+	 *     - ticket enter_market( shared ptr to osoba2 ) = A given osoba enter the market place
+	 *     - bool enter_market( shared ptr to shop ) = A new shop in the market
+	 *     - void quit_market( shared ptr to shop ) = exit the market (No more in the internal list)
+	 *     - void quit_market( ticket ) = find the osoba for the ticket, that osoba quit the market.
 	 *   Store the list of shops and osoba as variables (vectors, maps, you choose).
 	 *  2) the 'ticket' returned by enter_market is an object with the following interface:
 	 *     - shared_ptr<shop> enter_shop( name ) = return a pointer to one of the shops
