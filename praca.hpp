@@ -49,6 +49,7 @@ public:
 		map_praca["pomoc_domowa"] = {5000, 14};
 		map_praca["bohater"] = {50030, 8};
 		map_praca["programista_wykop"] = {15000, 12};
+		map_praca["spawacz"] = {15000, 12};
 	}
 	map_praca_t::mapped_type find_praca(const string & nazwa_pracy)
 	{

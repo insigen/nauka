@@ -10,6 +10,7 @@
 #include "praca.hpp"
 #include "osoba2.hpp"
 #include "shop.hpp"
+#include "market.hpp"
 
 using namespace std;
 
@@ -105,30 +106,62 @@ void Lesson4()
 
 }
 
-void bar(osoba2 * osob)
-{
-	osob->wykonaj_prace(); //Call virtual function
-}
+//POLYMORPHISM
+//void bar(osoba2 * osob)
+//{
+//	osob->wykonaj_prace(); //Call virtual function
+//}
 
-template<typename T>
-void foo(osoba2_stat<T>& osob) //Like pointer to base class
-{
-	osob.do_job_not_static();
-}
+//template<typename T>
+//void foo(osoba2_stat<T>& osob) //Like pointer to base class
+//{
+//	osob.do_job_not_static();
+//}
 
-void Lesson5()
-{
-	//Like providing pointer to derived class
-	osoba2_facet fac;
-	osoba2 * fac2 = new facet(10,"Kacper","programista_wykop");
+//void Lesson5()
+//{
+//	//Like providing pointer to derived class
+//	osoba2_facet fac;
+//	osoba2 * fac2 = new facet(10,"Kacper","programista_wykop");
 
-	foo(fac);
-	bar(fac2);
-}
+//	foo(fac);
+//	bar(fac2);
+//}
 
 void Lesson6()
 {
-	product_ptr whisky = product::create<alcohol>("jack_daniels", 1000);
+//	product_ptr whisky = product::create<alcohol>("jack_daniels", 1000);
+
+	vector<product_ptr> v;
+	v.push_back(product::create<alcohol>("red_label", 1000));
+	v.push_back(product::create<alcohol>("black_label", 1000));
+	v.push_back(product::create<alcohol>("gold_label", 1000));
+	v.push_back(product::create<alcohol>("blue_label", 1000));
+	v.push_back(product::create<alcohol>("jack_daniels", 1000));
+	v.push_back(product::create<alcohol>("jameson", 1000));
+	v.push_back(product::create<alcohol>("red_label", 1000));
+
+	v[ 0 ]->use_product();
+	v[ 0 ]->use_product();
+	v[ 0 ]->use_product();
+
+	shop s;
+	int amount_of_money{ 0 };
+	for(auto it = v.begin(); it != v.end(); ++it){
+		auto money = s.sell(*it);
+
+		if (money  > 0)  //((*it)->get_name == it->shared_ptr()->get_name
+			amount_of_money += money;
+
+		if((*it)->get_name() == "blue_label")
+			cout << (*it)->get_name() << " " << money << endl;
+	}
+
+
+	auto vn = s.get_list_of_producs();
+	auto price = s.inquiry("blue_label");
+
+	cout << "blue_label" << " " << price <<  endl;
 
 	/* TODO: KAROL:
 	 *  1) Create some products and put them in a container of products
@@ -160,10 +193,81 @@ void Lesson6()
 
 }
 
+//POINTER TO MEMBER EXAMPLE
+//struct test
+//{
+//	std::string name;
+//	std::string surname;
+//	std::string job;
+//};
+
+//test test_instance;
+
+//void foo( std::string test::*pointer ) {
+
+//	std::cout<<test_instance.*pointer<<std::endl;
+
+//}
+
+//void set_var(int parameter,
+//	const std::string& value)
+//{
+///*	std::string test::*pointer_one; //pointer to any member of type std::string
+//	int test::*pointer_two; //Pointer to any member of type int
+
+//	test instance_one;
+
+//	pointer_one = &test::surname;
+
+//	instance_one.*pointer_one = "HELLO";
+
+//	foo( &test::job );
+//	foo( &test::surname );
+//*/
+//	std::string test::*pointer[] = {
+//		&test::name,
+//		&test::surname,
+//		&test::job
+//	};
+
+//	test_instance.*pointer[parameter] = value;
+//}
+
+//void Lesson7() //Pointer to member
+//{
+//	set_var( 0, "name example");
+//	set_var( 1, "bla bla");
+//}
+
+using filip_ptr = std::shared_ptr<facet>;
+shop s1("aa"),s2("bb"),s3("cc");
+std::shared_ptr<shop> p_s1( &s1 );
+std::shared_ptr<shop> p_s2( &s2 );
+std::shared_ptr<shop> p_s3( &s3 );
+
+ticket get_ticket(filip_ptr ptr){
+	market mk;
+	mk.enter_market( p_s1 );
+	mk.enter_market( p_s2 );
+	mk.enter_market( p_s3 );
+	return mk.enter_market( ptr );
+}
+
+void lesson7()
+{
+	filip_ptr real_filip = make_shared<facet>(45,"Filip","spawacz");
+	ticket tk = get_ticket( real_filip );
+	shop_ptr my_shop = tk.enter_shop("aa");
+	if( my_shop != nullptr ){
+		my_shop->buy("ddd");
+	}
+}
+
 int main()
 {
 //    Lesson1();
 	//Lesson4();
-	Lesson5();
+	//Lesson6();
+	lesson7();
       return 0;
 }

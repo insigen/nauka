@@ -65,7 +65,7 @@ int product::get_remaining_status()
 
 double product::get_remaining_ratio()
 {
-	return m_remaining / m_max_value;
+	return (double)m_remaining / (double)m_max_value;
 }
 
 string product::get_name()
@@ -147,9 +147,16 @@ class cars : public product
 	}
 };
 
+class shop;
+
+using shop_ptr = shared_ptr<shop>;
+
 class shop
 {
 public:
+	shop() = default;
+	shop( const std::string& name ) : name(name) {}
+
 	/*
 	 * Return the list of name products
 	 * available in the shop and the
@@ -175,6 +182,8 @@ public:
 	 */
 	void produce();
 
+	string get_name();
+
 private:
 	//VARIABLES..
 	map<std::string,product_ptr> stock;
@@ -182,7 +191,14 @@ private:
 	map<string,pair<int,int>> product_info; //Price and quantity
 
 	void erase_product(const string& product_name);
+
+	string name;
 };
+
+string shop::get_name()
+{
+	return name;
+}
 
 
 vector<string> shop::get_list_of_producs()
@@ -261,7 +277,7 @@ int shop::sell(product_ptr product)
 	}
 	else
 	{
-		current_price = product->suggested_price();
+		current_price = product->suggested_price() * product->get_remaining_ratio();
 		stock[ product->get_name() ] =  product;
 		product_info[product->get_name()] = make_pair( current_price * 1.5 , 1);
 	}

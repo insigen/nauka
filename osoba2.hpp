@@ -8,7 +8,9 @@
 #define OSOBA2_HPP
 
 using namespace std;
+class osoba2;
 
+using osoba_ptr = shared_ptr<osoba2>;
 
 class osoba2
 {
@@ -84,33 +86,33 @@ public:
 	}
 
 };
+//STATIC POLYMORPHISM
+//template<typename T>
+//class osoba2_stat
+//{
+//public:
+//	void do_job_not_static() {
+//		//This call osoba2_face::do_jot_not_static
+//		//Works like a virtual function
+//		static_cast<T*>(this)->do_job_not_static();
+//	}
 
-template<typename T>
-class osoba2_stat
-{
-public:
-	void do_job_not_static() {
-		//This call osoba2_face::do_jot_not_static
-		//Works like a virtual function
-		static_cast<T*>(this)->do_job_not_static();
-	}
+//	static void do_job() {
+//		T::do_job();
+//	}
+//};
 
-	static void do_job() {
-		T::do_job();
-	}
-};
+//class osoba2_facet : public osoba2_stat<osoba2_facet>
+//{
+//public:
+//	void do_job_not_static(){
+//		cout<<"do_job in derived class, legit member\n";
+//	}
 
-class osoba2_facet : public osoba2_stat<osoba2_facet>
-{
-public:
-	void do_job_not_static(){
-		cout<<"do_job in derived class, legit member\n";
-	}
-
-	static void do_job() {
-		cout<<"do_job in derived class\n";
-	}
-};
+//	static void do_job() {
+//		cout<<"do_job in derived class\n";
+//	}
+//};
 
 
 #endif // OSOBA2_HPP

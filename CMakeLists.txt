@@ -1,5 +1,5 @@
 project(Lesson1)
-add_definitions(-std=c++11)
+add_definitions(-std=c++11 -ggdb)
 cmake_minimum_required(VERSION 2.8)
 aux_source_directory(. SRC_LIST)
 
