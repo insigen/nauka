@@ -239,28 +239,126 @@ void Lesson6()
 //	set_var( 1, "bla bla");
 //}
 
-using filip_ptr = std::shared_ptr<facet>;
-shop s1("aa"),s2("bb"),s3("cc");
-std::shared_ptr<shop> p_s1( &s1 );
-std::shared_ptr<shop> p_s2( &s2 );
-std::shared_ptr<shop> p_s3( &s3 );
+//using filip_ptr = std::shared_ptr<facet>;
+//shop s1("aa"),s2("bb"),s3("cc");
+//std::shared_ptr<shop> p_s1( &s1 );
+//std::shared_ptr<shop> p_s2( &s2 );
+//std::shared_ptr<shop> p_s3( &s3 );
 
-ticket get_ticket(filip_ptr ptr){
-	market mk;
-	mk.enter_market( p_s1 );
-	mk.enter_market( p_s2 );
-	mk.enter_market( p_s3 );
-	return mk.enter_market( ptr );
-}
+//ticket get_ticket(filip_ptr ptr){
+//	market mk;
+//	mk.enter_market( p_s1 );
+//	mk.enter_market( p_s2 );
+//	mk.enter_market( p_s3 );
+//	return mk.enter_market( ptr );
+//}
 
-void lesson7()
+//void lesson7()
+//{
+//	filip_ptr real_filip = make_shared<facet>(45,"Filip","spawacz");
+//	ticket tk = get_ticket( real_filip );
+//	shop_ptr my_shop = tk.enter_shop("aa");
+//	if( my_shop != nullptr ){
+//		my_shop->buy("ddd");
+//	}
+//}
+
+//class foo;
+
+//class tick
+//{
+//	int my_id;
+//	bool is_closed;
+//	foo *ptr_to_foo;
+//public:
+//	tick( foo * ptr, int id ) : ptr_to_foo{ ptr} my_id { id } {};
+//	bool market_close() {
+//		is_closed = true;
+//	}
+
+//	shop enter_shopt(string)
+//	{
+//		if( is_closed )
+//			return nullptr;
+//		return shop;
+//	}
+//	~tick() {
+//		if( !is_close )
+//			ptr_to_foo->remove_ticket( my_id );
+//	}
+//};
+
+//class foo
+//{
+//public:
+//	shared_ptr<tick> create() {
+//		//create sp
+//		static int new_id = 0;
+//		++new_id;
+//		tick(new_id); //shared ptr
+//		local.push_back( make_pair( new_id, sp ) );
+//		return sp;
+//	}
+
+//	void remove_ticket( id ) {
+//		//search local for id and remove
+//	}
+
+//	~foo() {
+//		for( auto tk : local )
+//			tk.second->market_close();
+
+//	}
+
+//public:
+//	map<int,tick*> local;
+//};
+
+void Lesson8()
 {
-	filip_ptr real_filip = make_shared<facet>(45,"Filip","spawacz");
-	ticket tk = get_ticket( real_filip );
-	shop_ptr my_shop = tk.enter_shop("aa");
-	if( my_shop != nullptr ){
-		my_shop->buy("ddd");
+	shop_ptr tesco = make_shared<shop>("tesco");
+	shop_ptr auchan = make_shared<shop>("auchan");
+	shop_ptr carrefour = make_shared<shop>("carrefour");
+
+	product_ptr whisky = product::create<alcohol>("whisky", 100);
+	product_ptr audi = product::create<cars>("audi", 2);
+	auchan->sell(whisky);
+	auchan->sell(audi);
+
+	shared_ptr<ticket> filip_ticket,
+					magda_ticket;
+
+	osoba_ptr Filip = make_shared<facet>(33, "Filip", "spawacz");
+	osoba_ptr Magda = make_shared<babka>(28, "Magda", "pomoc_domowa");
+
+	{
+		market m;
+		m.enter_market(tesco);
+		m.enter_market(auchan);
+		m.enter_market(carrefour);
+		m.get_all_shops();
+
+
+		filip_ticket = m.enter_market(Filip);
+		magda_ticket = m.enter_market(Magda);
+	}//Here market disappear.
+
+//	m.get_all_customers();
+
+	for ( auto it : auchan->get_list_of_producs())
+		cout << it << endl;
+
+
+	auto auchan_ptr = magda_ticket->enter_shop("auchan");
+	if ( auchan_ptr != nullptr){
+		auto audi_ptr = auchan_ptr->buy("audi");
+		if(audi_ptr!=nullptr)
+			cout << "Magda wlasnie kupila: " << audi_ptr->get_name() << endl;
+
 	}
+
+	for ( auto it : auchan->get_list_of_producs())
+		cout << "W sklepie pozostalo: "  << it << endl;
 }
 
 int main()
@@ -268,6 +366,19 @@ int main()
 //    Lesson1();
 	//Lesson4();
 	//Lesson6();
-	lesson7();
-      return 0;
+	//lesson7();
+
+//	foo* f_ptr = new foo;
+//	std::shared_ptr<foo> ptr;
+
+//	{
+//		std::shared_ptr<foo> ptr2( f_ptr );
+//	}
+
+//	//foo is not existing
+//	if( ptr == nullptr ) {
+//		std::cout<<"OK\n";
+//	}
+	Lesson8();
+	return 0;
 }

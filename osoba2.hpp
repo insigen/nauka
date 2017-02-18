@@ -22,6 +22,11 @@ public:
 	virtual void wykonaj_prace() = 0; //One additional step
 	virtual void wykonaj_prace_domowe() = 0;
 
+	void pokaz_osobe()
+	{
+		cout << "Mam na imie " << m_imie << " i jestem " << m_praca << endl;
+	}
+
 protected:
 	int m_wiek;
 	string m_imie;
@@ -84,6 +89,7 @@ public:
 		m_hajs +=rozlicz;
 		cout << m_imie << " wlasnie zarobiles " << rozlicz << endl;
 	}
+
 
 };
 //STATIC POLYMORPHISM

@@ -100,6 +100,7 @@ public:
 
 class drugs : public product
 {
+public:
 	drugs(const string& drug_name, int remaining) :
 		product(drug_name, remaining)
 	{}
@@ -125,6 +126,7 @@ class drugs : public product
 
 class cars : public product
 {
+public:
 	cars(const string& car_name, int remaining) :
 		product( car_name, remaining)
 	{}
@@ -159,13 +161,27 @@ public:
 
 	/*
 	 * Return the list of name products
-	 * available in the shop and the
+	 * available in the shop and the	alcohol(const string& name, int remaining
 	 * corresponding price.
 	 */
 	std::vector<string> get_list_of_producs();
 	/*
 	 * Buy the selected product.
-	 * if return pointer == nullptr, PAf.. no more products
+	 * if return pointer ==
+	m.get_all_customers();
+
+	for ( auto it : auchan->get_list_of_producs())
+		cout << it << endl;
+
+
+	auto audi_ptr = magda_ticket->enter_shop("auchan")->buy("audi");
+	if (audi_ptr!=nullptr)
+		cout << "Magda wlasnie kupila: " << audi_ptr->get_name() << endl;
+
+	for ( auto it : auchan->get_list_of_producs())
+		cout << "W sklepie pozostalo: "  << it << endl;
+}
+nullptr, PAf.. no more products
 	 */
 	product_ptr buy( const std::string& product_name );
 	/*
@@ -241,9 +257,10 @@ product_ptr shop::buy(const string &product_name)
 			--it2->second.second;
 			if(it2->second.second == 0)
 				erase_product(product_name);
+			return it->second;
 		}
 	}
-	return it->second;
+	return nullptr;
 }
 
 void shop::erase_product(const string& product_name)
